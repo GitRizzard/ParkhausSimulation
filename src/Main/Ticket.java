@@ -24,9 +24,16 @@ public class Ticket{
   public boolean isBezahlt() {
     return istBezahlt;
   }
+  
+  @FunctionalInterface
+  interface getTicketIDInterface {
+    int funcitonalGetTicketID();
+  }
+
+  getTicketIDInterface getTicketIDImplementation = () -> ticketID;
 
   public int getTicketID() {
-    return ticketID;
+    return getTicketIDImplementation.funcitonalGetTicketID();
   }
 
   //-----------------------------------------------Operationen-------------------------------------------------//

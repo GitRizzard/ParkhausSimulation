@@ -12,30 +12,33 @@ public class TicketRegister {
 
     //--------------------------------------------Getter-und-Setter----------------------------------------------//
 
-    public Ticket getTicketByID(int ID) {
-
-        // IDs beginnen bei 1, daher Index = ID - 1
-        if (ID > 0 && ID <= tickets.size()) {
-            return tickets.get(ID - 1);
-        } else {
-            // ID ist ungültig oder Main.Ticket existiert nicht
-            System.out.println("Main.Ticket-ID ist ungültig:" + ID);
-            return null;
+    public Ticket getTicketByID(int ID) {          
+       
+        Ticket ticket;
+        if (tickets.stream().filter(t -> t.getTicketID() == ID).findFirst()) {
+          ticket = t;
+        }
+        
+        if (ticket.equals(null)) {
+          // Ticket not found
+          return null;
         }
 
-    }
+        return ticket;
+      
+      }
 
-    public int[] getUnbezahlteTicketIDs() {
+      public int[] getUnbezahlteTicketIDs() {
 
-        // Die Anzahl der unbezahlten Tickets wird gezählt
-        int unbezahlteCount = 0;
-        for (int i = 0; i < tickets.size(); i++) {
-            if (!tickets.get(i).isBezahlt()) {
-                unbezahlteCount++;
-            }
-        }
+          // Die Anzahl der unbezahlten Tickets wird gezählt
+          int unbezahlteCount = 0;
+          for (int i = 0; i < tickets.size(); i++) {
+              if (!tickets.get(i).isBezahlt()) {
+                  unbezahlteCount++;
+              }
+          }
 
-        // Das Array für die Rückgabe wird initialisiert
+          // Das Array für die Rückgabe wird initialisiert
         int[] unbezahlteTicketIDs = new int[unbezahlteCount];
 
         // index wird benötigt um den speicherindex in unbezahlteTicketID nur zu erhöhen, wenn eine ID hinzugefügt wird
